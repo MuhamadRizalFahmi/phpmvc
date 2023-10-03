@@ -1,8 +1,8 @@
 <?php
 
-class Mahasiswa_model
+class guru_model
 {
-    private $table = 'mahasiswa';
+    private $table = 'guru';
     private $db;
 
     public function __construct()
@@ -10,39 +10,36 @@ class Mahasiswa_model
         $this->db = new Database;
     }
 
-    public function getAllMahasiswa()
+    public function getAllguru()
     {
         $this->db->query('SELECT * FROM ' . $this->table);
         return $this->db->resultSet();
     }
 
-    public function getMahasiswaById($id)
+    public function getguruById($id)
     {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
         $this->db->bind('id', $id);
         return $this->db->single();
     }
 
-    public function tambahDataMahasiswa($data)
+    public function tambahDataguru($data)
     {
-        $query = "INSERT INTO mahasiswa
+        $query = "INSERT INTO guru
                        VALUES
-                      ('', :nama, :nrp, :email, :jurusan)";
+                      ('', :guru)";
 
         $this->db->query($query);
-        $this->db->bind('nama', $data['nama']);
-        $this->db->bind('nrp', $data['nrp']);
-        $this->db->bind('email', $data['email']);
-        $this->db->bind('jurusan', $data['jurusan']);
+        $this->db->bind('guru', $data['guru']);
 
         $this->db->execute();
 
         return $this->db->rowCount();
     }
 
-    public function hapusDataMahasiswa($id)
+    public function hapusDataGuru($id)
     {
-        $query = "DELETE FROM mahasiswa WHERE id = :id";
+        $query = "DELETE FROM guru WHERE id = :id";
 
         $this->db->query($query);
         $this->db->bind('id', $id);
@@ -52,10 +49,10 @@ class Mahasiswa_model
         return $this->db->rowCount();
     }
 
-    public function cariDataMahasiswa()
+    public function cariDataguru()
     {
         $keyword = $_POST['keyword'];
-        $query = "SELECT * FROM mahasiswa WHERE nama LIKE :keyword";
+        $query = "SELECT * FROM guru WHERE guru LIKE :keyword";
         $this->db->query($query);
         $this->db->bind(':keyword', "%$keyword%");
         return $this->db->resultSet();
